@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import "@/assets/styles/global.css";
 import Footer from "@/components/Footer";
+import AuthProvider from "@/components/AuthProvider";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -15,13 +16,15 @@ export const metadata = {
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <html>
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <AuthProvider>
+      <html>
+        <body>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </AuthProvider>
   );
 };
 

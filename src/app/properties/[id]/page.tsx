@@ -4,6 +4,7 @@ import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
+import PropertyImages from "@/components/PropertyImages";
 
 interface PropertyPageProps {
   params: {
@@ -11,9 +12,16 @@ interface PropertyPageProps {
   };
 }
 
-const PropertyPage = async ({ params }: PropertyPageProps) => {
+export default async function PropertyPage({ params }: PropertyPageProps) {
   await connectDB();
-  const property = await Property.findById(params.id).lean().exec();
+
+  // Await the params object before accessing its properties
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+
+  // Find the property by ID
+  const property = await Property.findById(id).lean().exec();
+
   return (
     <>
       <PropertyHeaderImage image={(property as any)?.images[0]} />
@@ -44,8 +52,7 @@ const PropertyPage = async ({ params }: PropertyPageProps) => {
           </div>
         </div>
       </section>
+      <PropertyImages images={property.images} />
     </>
   );
-};
-
-export default PropertyPage;
+}

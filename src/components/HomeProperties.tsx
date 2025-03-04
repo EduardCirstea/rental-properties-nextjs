@@ -19,8 +19,8 @@ const HomeProperties = async () => {
             <p>No properties found</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recentProperties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
+              {recentProperties.map((property, i) => (
+                <PropertyCard key={i} property={property} />
               ))}
             </div>
           )}
